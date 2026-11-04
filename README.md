@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/hackertube-mcp-dark.png">
+    <img src="assets/hackertube-mcp-light.png" alt="hackertube-mcp" width="460">
+  </picture>
+</p>
+
 # hackertube-mcp
 
 An MCP server that answers *"what should I watch for this?"* with the YouTube videos Hacker News
@@ -6,6 +13,8 @@ keeps telling each other to watch.
 Huge props to [Andrej Karpathy](https://x.com/karpathy): this is built entirely on
 [HackerTube](https://hackertube.org), his weekend hack ([announcement on X](https://x.com/karpathy/status/2116957135661945283)),
 and on his decision to release all of its data for anyone to build on. hackertube-mcp just puts it inside your agent.
+
+▶ [Watch the launch video on X](https://x.com/alexmartiguiu/status/2117832629282386091) (under a minute).
 
 It runs over the open data export from [HackerTube](https://hackertube.org): 6,454 videos that at
 least three different HN commenters recommended across at least three different months, from 2007 to 2026,
@@ -94,13 +103,6 @@ It covers the figure grammar, the palette (light and dark), the layouts for each
 (every claim about a video must trace back to a card summary or HN comment, general background is flagged as such, and the agent may not invent a video's mechanism). Agents
 are expected to adapt it to their client. Fork the file to change the house style.
 
-## On a live board
-
-hackertube works on its own. It also pairs with any live-board MCP server, meaning one that draws while it
-narrates: connect both to your agent. `brief_guide` has an "On a live board" section that tells the agent
-what to show and in what order: the hero video's core idea, grounded takeaways, and thumbnails next to the
-ideas they teach.
-
 ## How ranking works
 
 1. The query is embedded with `BAAI/bge-small-en-v1.5`, the model HackerTube used for
@@ -140,20 +142,6 @@ to much. Situation-style questions work much better when the agent passes topica
 uv run python tests/test_stdio.py     # launches the server over stdio and calls every tool
 uv run python scripts/try_queries.py  # eyeball ranking quality
 ```
-
-## Roadmap
-
-The export has no transcripts, so the current "tips" are what HN commenters said about each video,
-not what the video itself says. Next steps:
-
-- **Transcripts → tips with timestamps.** Fetch captions, have a small model (for example Gemini Flash-Lite)
-  write 5–10 concrete takeaways per video with timestamp links, and embed transcript chunks for
-  passage-level search. Rough cost for the whole corpus is about 60M input tokens, or roughly $5–30 depending on the model.
-  Raw transcripts won't be redistributed; each user regenerates them locally.
-- **YouTube metadata** (durations, so you can filter by "under 20 minutes") through a free YouTube Data API key. See
-  `DATA.md` in the export.
-- **A `render_brief` tool** that fills a fixed HTML template from the agent's content, so every client
-  gets the same polished page, even a plain terminal.
 
 ## Acknowledgements
 
