@@ -1,0 +1,22 @@
+[project]
+name = "hackertube-mcp"
+version = "0.1.0"
+description = "MCP server that recommends the YouTube videos Hacker News keeps telling each other to watch (built on the HackerTube data export)."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=2.0",
+    "fastembed>=0.5",
+    "numpy>=1.26",
+]
+
+[project.scripts]
+hackertube-mcp = "hackertube_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hackertube_mcp"]
